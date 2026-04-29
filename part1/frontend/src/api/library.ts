@@ -97,21 +97,26 @@ export async function fetchAllBooks(): Promise<Book[]> {
 /** Fetches all members. Each member includes `card_number` resolved from library_cards. */
 export async function fetchAllMembers(): Promise<Member[]> {
   // TODO: replace this line with your fetch call to GET /members
-  throw new Error('fetchAllMembers is not implemented yet.');
+  const response = await fetch(`${API_BASE}/members`)
+  const members: Member[] = await response.json();
+  return members;
 }
 
 /** Fetches a single book by ID. Response includes full `author` object and `borrow_history`. */
 export async function fetchBookById(id: string): Promise<BookDetail> {
   // TODO: replace this line with your fetch call to GET /books/${id}
-  throw new Error('fetchBookById is not implemented yet.');
+    const response = await fetch(`${API_BASE}/books/${id}`);
+    const bookDetails: BookDetail = await response.json();
+  return bookDetails;
 }
 
 /** Fetches a single member by ID. Response includes `card` and `borrowed_books`. */
 export async function fetchMemberById(id: string): Promise<MemberDetail> {
   // TODO: replace this line with your fetch call to GET /members/${id}
-  throw new Error('fetchMemberById is not implemented yet.');
+  const response = await fetch(`${API_BASE}/members/${id}`);
+  const memberDetails: MemberDetail = await response.json();
+  return memberDetails;
 }
-
 
 // POST functions
 
@@ -141,7 +146,18 @@ export async function borrowBook(memberId: string, bookId: string): Promise<NewB
  */
 export async function returnBook(borrowId: string): Promise<{ message: string }> {
   // TODO: replace this line with your fetch call to POST /return
-  throw new Error('returnBook is not implemented yet.');
+    const response = await fetch(`${API_BASE}/return`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ borrow_id: borrowId }),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Request failed.');
+  }
+
+  const result = await response.json();
+  return result; 
 }
 
 
