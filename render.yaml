@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: library-backend
+    env: python
+    region: oregon
+    plan: free
+    dir: part2/backend
+    buildCommand: pip install -r requirements.txt
+    # Render injects $PORT automatically — gunicorn must bind to it.
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    envVars:
+      # Set these in the Render dashboard under Environment — do not commit real values here.
+      - key: MONGO_URI
+        sync: false
+      - key: REDIS_URL
+        sync: false
