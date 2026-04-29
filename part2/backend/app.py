@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Cache: backed by Redis, falls back to localhost if REDIS_URL is not set.
-app.config["CACHE_TYPE"]      = "RedisCache"
+app.config["CACHE_TYPE"]      = "SimpleCache"
 app.config["CACHE_REDIS_URL"] = os.getenv("REDIS_URL", "redis://localhost:6379")
 
 cache = Cache(app)
