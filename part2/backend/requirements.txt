@@ -2,6 +2,3 @@ flask
 pymongo
 python-dotenv
 flask-cors
-flask-caching
-redis
-gunicorn
